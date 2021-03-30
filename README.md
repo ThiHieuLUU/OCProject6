@@ -19,5 +19,3 @@ cd OCMovies-FrontEnd
 firefox index.html &
 ```
 Click on the page, the page will load image films
-# 3. Discussion
-Why the website works with "onclick" but not with "onload"? (see index.html: body onclick="showImages())
