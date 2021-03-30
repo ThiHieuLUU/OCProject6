@@ -78,7 +78,7 @@ async function showImages() {
     url = "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score";
     let imgId = "theBestFilmImg";
     await showTheBestFilm(imgId, url);
-    
+
     modelOfId = "bestFilmImg";
     await showImagesByCategory(modelOfId, numberOfImages, url, size);
 
@@ -93,5 +93,10 @@ async function showImages() {
     url = "http://127.0.0.1:8000/api/v1/titles/?genre=animation&sort_by=-imdb_score";
     modelOfId = "animationImg";
     await showImagesByCategory(modelOfId, numberOfImages, url, size);
+
+}
+
+function showInfo(){
+    alert("Hello");
 
 }
