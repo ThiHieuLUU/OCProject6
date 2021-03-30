@@ -7,15 +7,24 @@
 //  alert("Hello World!");
 //});
 
-async function checkCookies() {
-  var text = "";
-  if (navigator.cookieEnabled == true) {
-    text = "Cookies are enabled.";
-    await showImages();
-  } else {
-    text = "Cookies are not enabled.";
-  }
-//  document.getElementById("body").innerHTML = text;
+//async function checkCookies() {
+//  var text = "";
+//  if (navigator.cookieEnabled == true) {
+//    text = "Cookies are enabled.";
+//    await showImages();
+//  } else {
+//    text = "Cookies are not enabled.";
+//  }
+////  document.getElementById("body").innerHTML = text;
+//}
+
+async function loadImages() {
+    try {
+        await showImages();
+    } catch(err) {
+//        catches errors both in fetch and response.json
+        console.log(err);
+    }
 }
 
 async function getBestFilm(url) {
