@@ -1,3 +1,22 @@
+//Replace click by load, it doesn't work
+//document.getElementById("body").addEventListener("load", async function() {
+//    await showImages();
+//});
+
+//document.getElementById("body").addEventListener("load", function() {
+//  alert("Hello World!");
+//});
+
+async function checkCookies() {
+  var text = "";
+  if (navigator.cookieEnabled == true) {
+    text = "Cookies are enabled.";
+    await showImages();
+  } else {
+    text = "Cookies are not enabled.";
+  }
+//  document.getElementById("body").innerHTML = text;
+}
 
 async function getBestFilm(url) {
 //   Retrieve data (type: json) from the attribute "results".

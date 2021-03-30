@@ -1,4 +1,4 @@
-#1. Launch the part of API
+# 1. Launch the part of API
 ```bash
 sudo apt install -y python3-venv
 mkdir OCProject6
@@ -12,12 +12,12 @@ python manage.py create_db
 python manage.py runserver
 ```
 
-#2. Launch the part of website
+# 2. Launch the part of website
 In "OCProject6" directory, go to the "OCMovies-FrontEnd" directory and open the file "index.html".
 ```bash
 cd OCMovies-FrontEnd
 firefox index.html &
 ```
 Click on the page, the page will load image films
-#3. Discussion
+# 3. Discussion
 Why the website works with "onclick" but not with "onload"? (see index.html: body onclick="showImages())
