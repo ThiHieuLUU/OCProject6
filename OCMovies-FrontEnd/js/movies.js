@@ -1,33 +1,12 @@
-//Replace click by load, it doesn't work
-//document.getElementById("body").addEventListener("load", async function() {
-//    await showImages();
-//});
-
-//document.getElementById("body").addEventListener("load", function() {
-//  alert("Hello World!");
-//});
-
-//async function checkCookies() {
-//  var text = "";
-//  if (navigator.cookieEnabled == true) {
-//    text = "Cookies are enabled.";
-//    await showImages();
-//  } else {
-//    text = "Cookies are not enabled.";
-//  }
-////  document.getElementById("body").innerHTML = text;
-//}
-
 async function loadImages() {
     try {
         await showImages();
     } catch(err) {
-//        catches errors both in fetch and response.json
         console.log(err);
     }
 }
 
-async function getBestFilm(url) {
+async function getTheBestFilm(url) {
 //   Retrieve data (type: json) from the attribute "results".
     try {
         let response = await fetch(url);
@@ -40,9 +19,9 @@ async function getBestFilm(url) {
     }
 }
 
-async function showBestFilm(imgId, url) {
+async function showTheBestFilm(imgId, url) {
     try{
-        let result = await getBestFilm(url);
+        let result = await getTheBestFilm(url);
         let image_url = result["image_url"];
         document.getElementById(imgId).src = image_url;
     }catch(err) {
@@ -97,8 +76,11 @@ async function showImages() {
     let modelOfId;
 
     url = "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score";
-    let imgId = "bestFilmImg";
-    await showBestFilm(imgId, url);
+    let imgId = "theBestFilmImg";
+    await showTheBestFilm(imgId, url);
+    
+    modelOfId = "bestFilmImg";
+    await showImagesByCategory(modelOfId, numberOfImages, url, size);
 
     url = "http://127.0.0.1:8000/api/v1/titles/?genre=action&sort_by=-imdb_score";
     modelOfId = "actionImg";

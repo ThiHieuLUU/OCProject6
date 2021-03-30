@@ -71,8 +71,8 @@ img {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
-  width: 150;
-  height=200;
+  width: 100;
+  height=150;
 }
 
 img:hover {
@@ -131,3 +131,4 @@ li a:hover:not(.active) {
 </style>
 </head>
 <body>
+
