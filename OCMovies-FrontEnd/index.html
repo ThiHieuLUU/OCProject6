@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="utf-8">
+
 <head>
-<title>CSS Template</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--</style>-->
-<link rel="stylesheet" href="css/movies.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--</style>-->
+    <link rel="stylesheet" href="css/movies.css">
 </head>
 
 <body id="body" onload="loadImages()">
@@ -23,21 +22,44 @@
     </ul>
 </div>
 
-<div class="grid-container">
+<!--<div class="grid-container">-->
+<!--    <img id="theBestFilmImg"/>-->
+<!--</div>-->
+
+<div class="container">
     <img id="theBestFilmImg"/>
+    <button id="btn_theBestFilmImg">More Information</button>
+    <div class="text-block">
+        <p id="info_theBestFilmImg"></p>
+    </div>
 </div>
+
+<!-- Begin the Modal Box-->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Film Information</h2>
+        </div>
+
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+<!-- End the Modal Box-->
+
 
 <!--Start of best films-->
 <div><h2>Top Rated Films</h2> </div>
 <div class="row">
     <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>
-    <div class="column"><img id="bestFilmImg0" onclick="showInfo()"/></div>
-    <div class="column"><img id="bestFilmImg1" /></div>
-    <div class="column"><img id="bestFilmImg2" /></div>
-    <div class="column"><img id="bestFilmImg3" /></div>
-    <div class="column"><img id="bestFilmImg4" /></div>
-    <div class="column"><img id="bestFilmImg5" /></div>
-    <div class="column"><img id="bestFilmImg6" /></div>
+    <div class="column"> <img id="bestFilmImg0"/> <button id="btn_bestFilmImg0">More Information</button> </div>
+    <div class="column"><img id="bestFilmImg1" /><button id="btn_bestFilmImg1">More Information</button></div>
+    <div class="column"><img id="bestFilmImg2" /><button id="btn_bestFilmImg2">More Information</button></div>
+    <div class="column"><img id="bestFilmImg3" /><button id="btn_bestFilmImg3">More Information</button></div>
+    <div class="column"><img id="bestFilmImg4" /><button id="btn_bestFilmImg4">More Information</button></div>
+    <div class="column"><img id="bestFilmImg5" /><button id="btn_bestFilmImg5">More Information</button></div>
+    <div class="column"><img id="bestFilmImg6" /><button id="btn_bestFilmImg6">More Information</button></div>
     <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>
 </div>
 <!--End of best films-->
@@ -46,51 +68,51 @@
 <div><h2>Action</h2> </div>
 <div class="row">
     <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>
-    <div class="column"><img id="actionImg0"/></div>
-    <div class="column"><img id="actionImg1" /></div>
-    <div class="column"><img id="actionImg2" /></div>
-    <div class="column"><img id="actionImg3" /></div>
-    <div class="column"><img id="actionImg4" /></div>
-    <div class="column"><img id="actionImg5" /></div>
-    <div class="column"><img id="actionImg6" /></div>
+    <div class="column"><img id="actionImg0"/><button id="btn_actionImg0">More Information</button></div>
+    <div class="column"><img id="actionImg1" /><button id="btn_actionImg1">More Information</button></div>
+    <div class="column"><img id="actionImg2" /><button id="btn_actionImg2">More Information</button></div>
+    <div class="column"><img id="actionImg3" /><button id="btn_actionImg3">More Information</button></div>
+    <div class="column"><img id="actionImg4" /><button id="btn_actionImg4">More Information</button></div>
+    <div class="column"><img id="actionImg5" /><button id="btn_actionImg5">More Information</button></div>
+    <div class="column"><img id="actionImg6" /><button id="btn_actionImg6">More Information</button></div>
     <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>
 </div>
 <!--End of genre: action-->
 
 <!--Start of genre: fantasy-->
-<div><h2>Fantasy</h2> </div>
+<div><h2>fantasy</h2> </div>
 <div class="row">
     <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>
-    <div class="column"><img id="fantasyImg0"/></div>
-    <div class="column"><img id="fantasyImg1" /></div>
-    <div class="column"><img id="fantasyImg2" /></div>
-    <div class="column"><img id="fantasyImg3" /></div>
-    <div class="column"><img id="fantasyImg4" /></div>
-    <div class="column"><img id="fantasyImg5" /></div>
-    <div class="column"><img id="fantasyImg6" /></div>
+    <div class="column"><img id="fantasyImg0"/><button id="btn_fantasyImg0">More Information</button></div>
+    <div class="column"><img id="fantasyImg1" /><button id="btn_fantasyImg1">More Information</button></div>
+    <div class="column"><img id="fantasyImg2" /><button id="btn_fantasyImg2">More Information</button></div>
+    <div class="column"><img id="fantasyImg3" /><button id="btn_fantasyImg3">More Information</button></div>
+    <div class="column"><img id="fantasyImg4" /><button id="btn_fantasyImg4">More Information</button></div>
+    <div class="column"><img id="fantasyImg5" /><button id="btn_fantasyImg5">More Information</button></div>
+    <div class="column"><img id="fantasyImg6" /><button id="btn_fantasyImg6">More Information</button></div>
     <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>
 </div>
 <!--End of genre: fantasy-->
 
 <!--Start of genre: animation-->
-<div><h2>Animation</h2> </div>
+<div><h2>animation</h2> </div>
 <div class="row">
     <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>
-    <div class="column"><img id="animationImg0"/></div>
-    <div class="column"><img id="animationImg1" /></div>
-    <div class="column"><img id="animationImg2" /></div>
-    <div class="column"><img id="animationImg3" /></div>
-    <div class="column"><img id="animationImg4" /></div>
-    <div class="column"><img id="animationImg5" /></div>
-    <div class="column"><img id="animationImg6" /></div>
+    <div class="column"><img id="animationImg0"/><button id="btn_animationImg0">More Information</button></div>
+    <div class="column"><img id="animationImg1" /><button id="btn_animationImg1">More Information</button></div>
+    <div class="column"><img id="animationImg2" /><button id="btn_animationImg2">More Information</button></div>
+    <div class="column"><img id="animationImg3" /><button id="btn_animationImg3">More Information</button></div>
+    <div class="column"><img id="animationImg4" /><button id="btn_animationImg4">More Information</button></div>
+    <div class="column"><img id="animationImg5" /><button id="btn_animationImg5">More Information</button></div>
+    <div class="column"><img id="animationImg6" /><button id="btn_animationImg6">More Information</button></div>
     <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>
 </div>
 <!--End of genre: animation-->
 
+<!--a vanilla js-->
 <script src="js/movies.js"></script>
-
+<!--End of script-->
 
 </body>
-
 </html>
 

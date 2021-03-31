@@ -1,3 +1,5 @@
+const keys = ["title", "genres", "year", "votes", "imdb_score", "directors", "actors"];
+
 async function loadImages() {
     try {
         await showImages();
@@ -24,8 +26,23 @@ async function showTheBestFilm(imgId, url) {
         let result = await getTheBestFilm(url);
         let image_url = result["image_url"];
         document.getElementById(imgId).src = image_url;
+        let element = document.getElementById("info_theBestFilmImg");
+        element.innerHTML =result["title"];
+
+        let newDiv = document.createElement("div");
+        newDiv.setAttribute("id", "modalDiv");
+
+        let btnId = "btn_" + imgId; // e.g. model: btn_bestFilmImg0
+        let btn = document.getElementById(btnId);
+        btn.onclick = async function(){
+            if(document.getElementById("modalDiv")){
+                document.getElementById("modalDiv").remove();
+            }
+            await showInfo(result);
+        };
+
     }catch(err) {
-//        catches errors both in fetch and response.json
+//        catches errors
         console.log(err);
     }
 }
@@ -58,12 +75,30 @@ async function showImagesByCategory(modelOfId, numberOfImages, url, size) {
     try {
         let results = await getDataFromMultiPages(url, size);
         for (let i = 0; i < numberOfImages; i++){
-            let image_url = results[i]["image_url"];
+            let result = results[i];
+            let image_url = result["image_url"];
             imgId = modelOfId + i;
-            document.getElementById(imgId).src = image_url;
+            let img = document.getElementById(imgId);
+            img.src = image_url;
+            // Add event "onclick" to display film information in a modal box
+            img.onclick = async function(){
+                if(document.getElementById("modalDiv")){
+                    document.getElementById("modalDiv").remove();
+                }
+                await showInfo(result);
+            };
+            let btnId = "btn_" + imgId; // model: btn_bestFilmImg0
+            let btn = document.getElementById(btnId);
+            btn.onclick = async function(){
+                if(document.getElementById("modalDiv")){
+                    document.getElementById("modalDiv").remove();
+                }
+                await showInfo(result);
+            };
+
         }
     } catch(err) {
-        //catches errors both in fetch and response.json
+        //catches errors
         console.log(err);
     }
 
@@ -96,7 +131,63 @@ async function showImages() {
 
 }
 
-function showInfo(){
-    alert("Hello");
+function addElementsToDiv(div, result, keys){
+    for(let i = 0; i < keys.length; i++){
+        let tag = document.createElement("p");
+        let key = keys[i];
+        let _key = key;
+        if(_key.includes("_")){
+            _key.replace("_", " ");
+        }
 
+        info = _key.charAt(0).toUpperCase() + _key.slice(1) + ": " + result[key];
+        if(info.includes(",")){
+            info.replace(",", ", "); // Don't work?
+        }
+        let text = document.createTextNode(info);
+        tag.appendChild(text);
+        div.appendChild(tag);
+    }
+    return div;
 }
+
+async function showInfo(result){
+    // Get the modal
+    let modal = document.getElementById("myModal");
+    modal.style.display = "block";
+
+    var element = document.getElementById("modalBody");
+
+    var newDiv = document.createElement("div");
+    newDiv.setAttribute("id", "modalDiv");
+
+    var img = new Image();
+    img.src = result["image_url"];
+    img.height = 90;
+    img.width = 70;
+    newDiv.appendChild(img);
+
+    addElementsToDiv(newDiv, result, keys); // see const keys at the beginning of this script.
+
+    element.appendChild(newDiv);
+
+    // Get the <span> element that closes the modal
+    let span = document.getElementsByClassName("close")[0];
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+      document.getElementById("modalDiv").remove();
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+              document.getElementById("modalDiv").remove();
+
+      }
+    }
+}
+
