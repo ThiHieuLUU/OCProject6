@@ -1,4 +1,5 @@
-const keys = ["title", "genres", "year", "votes", "imdb_score", "directors", "actors"];
+const keys = ["title", "genres", "date_published", "rated", "imdb_score", "directors", "actors", "duration",
+"countries", "description"];
 
 async function loadImages() {
     try {
@@ -132,23 +133,29 @@ async function showImages() {
 }
 
 function addElementsToDiv(div, result, keys){
-    for(let i = 0; i < keys.length; i++){
+    for (key of keys) {
         let tag = document.createElement("p");
-        let key = keys[i];
-        let _key = key;
-        if(_key.includes("_")){
-            _key.replace("_", " ");
+        let info;
+        if(result.hasOwnProperty(key)){
+            info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + result[key];
+
+        }else{
+            let no_info = "Not available"
+            info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + no_info;
+        }
+        // Deal to some characters
+        if (info.includes("_")){
+            info.replace("_", " ");
         }
 
-        info = _key.charAt(0).toUpperCase() + _key.slice(1) + ": " + result[key];
-        if(info.includes(",")){
-            info.replace(",", ", "); // Don't work?
+        if (info.includes(",")){
+            info.replace(",", " ");
         }
+
         let text = document.createTextNode(info);
         tag.appendChild(text);
         div.appendChild(tag);
     }
-    return div;
 }
 
 async function showInfo(result){
