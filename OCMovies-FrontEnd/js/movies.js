@@ -28,7 +28,17 @@ async function showTheBestFilm(imgId, url) {
         let image_url = result["image_url"];
         document.getElementById(imgId).src = image_url;
         let element = document.getElementById("info_theBestFilmImg");
-        element.innerHTML =result["title"];
+
+//        let div = document.createElement("div");
+//        let tag = document.createElement("p");
+//        let info = result["title"];
+//
+//        let text = document.createTextNode(info);
+//        tag.appendChild(text);
+//        div.appendChild(tag);
+
+        let info = "The best film: " + "<br>" + result["title"]
+        element.innerHTML = info;
 
         let newDiv = document.createElement("div");
         newDiv.setAttribute("id", "modalDiv");

@@ -1,3 +1,7 @@
+.center {
+  text-align: center;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -28,6 +32,7 @@
   padding: 10px;
   height: 300px; /* Should be removed. Only for demonstration */
 }
+
 
 /* Style the footer */
 .footer {
@@ -71,8 +76,8 @@ img {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
-  width: 100;
-  height=150;
+/*  width: 100;
+  height=150;*/
 }
 
 img:hover {
@@ -107,7 +112,7 @@ li a:hover:not(.active) {
   display: grid;
   /*grid-template-columns: auto auto auto auto;*/
   /*grid-template-columns:none;*/
-  grid-template-columns:fit-content(100%);
+  grid-template-columns: fit-content(100%);
  /*grid-template-columns: minmax(100px, 1fr);*/
   grid-gap: 10px;
   background-color: #2196F3;
@@ -170,19 +175,56 @@ li a:hover:not(.active) {
 }
 
 /* Best film image*/
-.container {
+.container-best-film {
   position: relative;
   font-family: Arial;
 }
 
-.text-block {
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 180px;
+  /*background-color: #2196F3;*/
+}
+
+
+.container img {
+   position: relative;
+   width: 100%;
+   height: auto;
+}
+
+.container .btn {
   position: absolute;
+  top: 95%;
+  left: 75%;
+  transform: translate(-50%, -100%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  white-space: nowrap; /*No break line*/
+  font-family: Arial;
+  font-size: 14px;
+  border: 10px;
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.container .btn:hover {
+  background-color: black;
+}
+
+
+.text-block {
+  position: relative;
   bottom: 20px;
   right: 20px;
-  background-color: black;
+  background-color:#2196F3
+  /*background-color: black;*/
+  font-size: 20px;
   color: white;
   padding-left: 20px;
   padding-right: 20px;
 }
-
-
