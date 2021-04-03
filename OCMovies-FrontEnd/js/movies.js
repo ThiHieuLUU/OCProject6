@@ -1,6 +1,8 @@
 const keys = ["title", "genres", "date_published", "rated", "imdb_score", "directors", "actors", "duration",
 "countries", "description"];
 
+document.getElementsByTagName("body").onload = loadImages();
+
 async function loadImages() {
     try {
         await showImages();
@@ -9,58 +11,66 @@ async function loadImages() {
     }
 }
 
-async function getTheBestFilm(url) {
-//   Retrieve data (type: json) from the attribute "results".
+async function getDetailInfo(url) {
+//   Retrieve data (type: json) from an url containing film id (e.g. "http://localhost:8000/api/v1/titles/9").
+// This data contains detail information of the corresponding film.
     try {
         let response = await fetch(url);
         let data = await response.json();
-        let results = await data.results;
-        return results[0]; // The first element is the best score.
+        return data;
     } catch(err) {
 //        catches errors both in fetch and response.json
         console.log(err);
     }
 }
 
+
 async function showTheBestFilm(imgId, url) {
     try{
-        let result = await getTheBestFilm(url);
-        let image_url = result["image_url"];
-        document.getElementById(imgId).src = image_url;
+        size = 1; // Take only one film from the sorted films by imdb_score
+        let filmUrls = await getUrlsForDetailInfo(url, size);
+        filmUrl = filmUrls[0];
+        await showImage(filmUrl, imgId);
+
+        const data = await getDetailInfo(filmUrl);
+
         let element = document.getElementById("info_theBestFilmImg");
 
-//        let div = document.createElement("div");
-//        let tag = document.createElement("p");
-//        let info = result["title"];
-//
-//        let text = document.createTextNode(info);
-//        tag.appendChild(text);
-//        div.appendChild(tag);
-
-        let info = "The best film: " + "<br>" + result["title"]
+        let info = "The best film: " + "<br>" + data["title"] + "<br>" + data["description"];
         element.innerHTML = info;
-
-        let newDiv = document.createElement("div");
-        newDiv.setAttribute("id", "modalDiv");
-
-        let btnId = "btn_" + imgId; // e.g. model: btn_bestFilmImg0
-        let btn = document.getElementById(btnId);
-        btn.onclick = async function(){
-            if(document.getElementById("modalDiv")){
-                document.getElementById("modalDiv").remove();
-            }
-            await showInfo(result);
-        };
-
     }catch(err) {
 //        catches errors
         console.log(err);
     }
 }
 
+async function getUrlsForDetailInfo(url, size) {
+//  Fetch multiple pages to retrieve a list of urls where each url leads to the detail information for each film.
+    try{
+        const urlsForDetailInfo = [];
+        while (url && urlsForDetailInfo.length < size) {
+            const res = await fetch(url);
+            const data = await res.json();
+
+            const results = data.results;
+            let i = 0;
+            while(urlsForDetailInfo.length < size && i < results.length){
+                let film_url = results[i]["url"];
+                urlsForDetailInfo.push(film_url);
+                i++;
+            }
+            url = data.next;
+        }
+        return urlsForDetailInfo;
+    }catch(err){
+    console.log(err);
+    }
+}
+
 async function getDataFromMultiPages(url, size) {
 //  Fetch multiple pages to retrieve json data in a list.
     const listOfResults = [];
+    let numberOfItems = 0;
     try{
             do {
                 const res = await fetch(url);
@@ -81,32 +91,37 @@ async function getDataFromMultiPages(url, size) {
     }
 }
 
+async function showModalBox(data){
+    if(document.getElementById("modalDiv")){
+        document.getElementById("modalDiv").remove();
+    }
+    await showInfo(data);
+}
+
+async function showImage(filmUrl, imgId){
+    const data = await getDetailInfo(filmUrl);
+    let imageUrl = data["image_url"];
+
+
+    let img = document.getElementById(imgId);
+    img.src = imageUrl;
+    // Add event "onclick" to display film information in a modal box
+    img.onclick = async function(){await showModalBox(data);};
+
+    let btnId = "btn_" + imgId; // model: btn_bestFilmImg0
+    let btn = document.getElementById(btnId);
+    btn.onclick = async function(){await showModalBox(data);};
+}
+
+
 async function showImagesByCategory(modelOfId, numberOfImages, url, size) {
 //Retrieve data (type: json) from the attribute "results".
     try {
-        let results = await getDataFromMultiPages(url, size);
+        let filmUrls = await getUrlsForDetailInfo(url, size);
         for (let i = 0; i < numberOfImages; i++){
-            let result = results[i];
-            let image_url = result["image_url"];
+            let filmUrl = filmUrls[i];
             imgId = modelOfId + i;
-            let img = document.getElementById(imgId);
-            img.src = image_url;
-            // Add event "onclick" to display film information in a modal box
-            img.onclick = async function(){
-                if(document.getElementById("modalDiv")){
-                    document.getElementById("modalDiv").remove();
-                }
-                await showInfo(result);
-            };
-            let btnId = "btn_" + imgId; // model: btn_bestFilmImg0
-            let btn = document.getElementById(btnId);
-            btn.onclick = async function(){
-                if(document.getElementById("modalDiv")){
-                    document.getElementById("modalDiv").remove();
-                }
-                await showInfo(result);
-            };
-
+            await showImage(filmUrl, imgId);
         }
     } catch(err) {
         //catches errors
