@@ -51,7 +51,6 @@
 <!--            </div>-->
 <!--&lt;!&ndash;        </div>&ndash;&gt;-->
 <!--</div>-->
-<div><button id="demo" onclick="getUrlFromMultiPages()">DEMO</button></div>
 
 <!-- Begin the best film-->
 <div class="row" style="background-color:#2196F3">
@@ -68,8 +67,8 @@
         </div>
     </div>
 </div>
-<!-- End the best film-->
 
+<!-- End the best film-->
 
 <!-- Begin the Modal Box-->
 <div id="myModal" class="modal">
@@ -77,7 +76,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
-            <h2>Film More information</h2>
+            <h2>Film Information</h2>
         </div>
 
         <div class="modal-body" id="modalBody"></div>
@@ -90,9 +89,8 @@
 <div class="center"><p><h2>Top Rated Films</h2></p> </div>
 
 <div class="row">
+    <div><button id="btn_prev_bestFilm", onclick="prevFilms(this.id)">❮</button></div>
 
-<!--    <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>-->
-    <a href="#" class="previous round">&#8249;</a>
     <div class="column">
         <div class="container">
             <img id="bestFilmImg0"/>
@@ -121,7 +119,7 @@
         </div>
     </div>
 
-        <div class="column">
+    <div class="column">
         <div class="container">
             <img id="bestFilmImg4"/>
             <button class="btn" id="btn_bestFilmImg4">More info</button>
@@ -142,9 +140,8 @@
         </div>
     </div>
 
-    <a href="#" class="next round">&#8249;</a>
+    <div><button id="btn_next_bestFilm" onclick=" nextFilms(this.id)">❯</button></div>
 
-<!--    <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>-->
 </div>
 <!--End of best films-->
 
@@ -152,8 +149,7 @@
 <div class="center"><p><h2>Action</h2></p> </div>
 
 <div class="row">
-
-    <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>
+    <div><button id="btn_prev_action", onclick="prevFilms(this.id)">❮</button></div>
 
     <div class="column">
         <div class="container">
@@ -183,7 +179,7 @@
         </div>
     </div>
 
-        <div class="column">
+    <div class="column">
         <div class="container">
             <img id="actionImg4"/>
             <button class="btn" id="btn_actionImg4">More info</button>
@@ -204,7 +200,8 @@
         </div>
     </div>
 
-    <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>
+    <div><button id="btn_next_action" onclick=" nextFilms(this.id)">❯</button></div>
+
 </div>
 <!--End of genre: action-->
 
@@ -212,7 +209,7 @@
 <div class="center"><p><h2>Fantasy</h2></p> </div>
 
 <div class="row">
-    <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>
+    <div><button id="btn_prev_fantasy", onclick="prevFilms(this.id)">❮</button></div>
 
     <div class="column">
         <div class="container">
@@ -263,7 +260,7 @@
         </div>
     </div>
 
-    <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>
+    <div><button id="btn_next_fantasy" onclick=" nextFilms(this.id)">❯</button></div>
 </div>
 <!--End of genre: fantasy-->
 
@@ -272,7 +269,7 @@
 
 <div class="row">
 
-    <div class="column"><a href="#">&laquo;</a><div class="pagination"></div></div>
+    <div><button id="btn_prev_animation", onclick="prevFilms(this.id)">❮</button></div>
 
     <div class="column">
         <div class="container">
@@ -323,7 +320,7 @@
         </div>
     </div>
 
-    <div class="column"><a href="#">&raquo;</a><div class="pagination"></div></div>
+    <div><button id="btn_next_animation" onclick=" nextFilms(this.id)">❯</button></div>
 </div>
 
 <!--End of genre: animation-->

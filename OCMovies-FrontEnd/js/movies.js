@@ -1,164 +1,111 @@
-const keys = ["title", "genres", "date_published", "rated", "imdb_score", "directors", "actors", "duration",
+const KEYS = ["title", "genres", "date_published", "rated", "imdb_score", "directors", "actors", "duration",
 "countries", "description"];
+
+const CATEGORY_NAMES = ["bestFilm", "action", "fantasy", "animation"];
+const NB_IMAGES_PER_PAGE = 7; // Number of images is displayed for each category.
+let SIZE = 35; // Each time fetch 35 films for each category.
+
+let detailInfoUrls ={}; // To store all fetched url films to get detail film information.
+let currentPositions = {}; //Current fist image position displayed from the left to the right of the screen.
+let imageIdModel = {}; // The model of image id which is defined for each category in index.html.
+let nextUrls = {}; // Mark the url by category to can be continued fetching at the next time.
+let theBestFilmImgId = "theBestFilmImg"
 
 document.getElementsByTagName("body").onload = loadImages();
 
+function initializeParameters(){
+    /*
+    * Initialize some declared parameters.
+    */
+
+    for(category of CATEGORY_NAMES){
+        detailInfoUrls[category] = [];
+        currentPositions[category] = 0;// Position of the first image from the left to the right.
+        imageIdModel[category] = category + "Img";// e.g. Model of image id: actionImg -> id: actionImg1, actionImg2, ect.
+    }
+
+    nextUrls[CATEGORY_NAMES[0]] = "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score";
+    nextUrls[CATEGORY_NAMES[1]] = "http://127.0.0.1:8000/api/v1/titles/?genre=action&sort_by=-imdb_score";
+    nextUrls[CATEGORY_NAMES[2]] = "http://127.0.0.1:8000/api/v1/titles/?genre=fantasy&sort_by=-imdb_score";
+    nextUrls[CATEGORY_NAMES[3]] = "http://127.0.0.1:8000/api/v1/titles/?genre=animation&sort_by=-imdb_score";
+}
+
 async function loadImages() {
+    /*
+    * Function is called when the page is loaded at the first time.
+    */
+
     try {
-        await showImages();
+        initializeParameters();
+        await showTheBestFilm();
+        await showImagesOfAllCategories();
     } catch(err) {
         console.log(err);
     }
 }
 
-async function getDetailInfo(url) {
-//   Retrieve data (type: json) from an url containing film id (e.g. "http://localhost:8000/api/v1/titles/9").
-// This data contains detail information of the corresponding film.
-    try {
+async function showTheBestFilm() {
+    /*
+    * Show the best film which has the best imdb score.
+    */
+
+    try{
+        let url = nextUrls[CATEGORY_NAMES[0]];
         let response = await fetch(url);
         let data = await response.json();
-        return data;
-    } catch(err) {
-//        catches errors both in fetch and response.json
-        console.log(err);
-    }
-}
-
-
-async function showTheBestFilm(imgId, url) {
-    try{
-        size = 1; // Take only one film from the sorted films by imdb_score
-        let filmUrls = await getUrlsForDetailInfo(url, size);
-        filmUrl = filmUrls[0];
+        let results = await data.results;
+        let result = results[0]; // The first element is the best score.
+        let image_url = result["image_url"];
+        let filmUrl = result["url"];
+        let imgId = "theBestFilmImg";
         await showImage(filmUrl, imgId);
-
-        const data = await getDetailInfo(filmUrl);
-
+        // Add text to image
+        data = await getDetailInfo(filmUrl);
         let element = document.getElementById("info_theBestFilmImg");
-
         let info = "The best film: " + "<br>" + data["title"] + "<br>" + data["description"];
         element.innerHTML = info;
-    }catch(err) {
-//        catches errors
+    }
+    catch(err) {
+        // catches errors
         console.log(err);
     }
 }
 
-async function getUrlsForDetailInfo(url, size) {
-//  Fetch multiple pages to retrieve a list of urls where each url leads to the detail information for each film.
+async function updateUrlsForDetailInfo(categoryName) {
+    /*
+    * Fetch multiple pages to retrieve a list of urls where each url leads to the detail information for each film.
+    * SIZE is the number of urls will be fetched. SIZE will be rounded by the available element on the fetched page.
+    * e.g. each fetched page contains 5 elements, SIZE = 18 => SIZE after fetching will be the ((18 // 5) + 1)*5
+    */
+
     try{
-        const urlsForDetailInfo = [];
-        while (url && urlsForDetailInfo.length < size) {
+        let url = nextUrls[categoryName];
+        let nbOfItems = 0;
+        while (url && nbOfItems < SIZE) {
             const res = await fetch(url);
             const data = await res.json();
 
             const results = data.results;
-            let i = 0;
-            while(urlsForDetailInfo.length < size && i < results.length){
-                let film_url = results[i]["url"];
-                urlsForDetailInfo.push(film_url);
-                i++;
+            for (result of results){
+                let film_url = result["url"];
+                detailInfoUrls[categoryName].push(film_url);
+                nbOfItems ++;
             }
             url = data.next;
         }
-        return urlsForDetailInfo;
+    // Mark and update the url for the next request on the same category.
+    nextUrls[categoryName] = url;
     }catch(err){
-    console.log(err);
-    }
-}
-
-async function getDataFromMultiPages(url, size) {
-//  Fetch multiple pages to retrieve json data in a list.
-    const listOfResults = [];
-    let numberOfItems = 0;
-    try{
-            do {
-                const res = await fetch(url);
-                const data = await res.json();
-                url = data.next;
-                const results = data.results;// get element with key "results", this is a collection of movie infos
-                for(let i = 0; i < results.length; i++){
-                    listOfResults.push(results[i]);
-                }
-                if (listOfResults.length === size){
-                // Retrieve only the given number of elements (size), not all.
-                    break;
-                }
-            } while(url)
-    return listOfResults;
-    }catch(err){
-    console.log(err);
-    }
-}
-
-async function showModalBox(data){
-    if(document.getElementById("modalDiv")){
-        document.getElementById("modalDiv").remove();
-    }
-    await showInfo(data);
-}
-
-async function showImage(filmUrl, imgId){
-    const data = await getDetailInfo(filmUrl);
-    let imageUrl = data["image_url"];
-
-
-    let img = document.getElementById(imgId);
-    img.src = imageUrl;
-    // Add event "onclick" to display film information in a modal box
-    img.onclick = async function(){await showModalBox(data);};
-
-    let btnId = "btn_" + imgId; // model: btn_bestFilmImg0
-    let btn = document.getElementById(btnId);
-    btn.onclick = async function(){await showModalBox(data);};
-}
-
-
-async function showImagesByCategory(modelOfId, numberOfImages, url, size) {
-//Retrieve data (type: json) from the attribute "results".
-    try {
-        let filmUrls = await getUrlsForDetailInfo(url, size);
-        for (let i = 0; i < numberOfImages; i++){
-            let filmUrl = filmUrls[i];
-            imgId = modelOfId + i;
-            await showImage(filmUrl, imgId);
-        }
-    } catch(err) {
-        //catches errors
         console.log(err);
     }
-
 }
 
-async function showImages() {
-    let size = 15; // set a max element number for fetching multiple pages
-    let numberOfImages = 7; // number of element displayed in screen
-    let url;
-    let modelOfId;
+function addElementsToDiv(div, result, KEYS){
+    /*
+    * Build a div then add film information to display in the modal box.
+    */
 
-    url = "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score";
-    let imgId = "theBestFilmImg";
-    await showTheBestFilm(imgId, url);
-
-    modelOfId = "bestFilmImg";
-    await showImagesByCategory(modelOfId, numberOfImages, url, size);
-
-    url = "http://127.0.0.1:8000/api/v1/titles/?genre=action&sort_by=-imdb_score";
-    modelOfId = "actionImg";
-    await showImagesByCategory(modelOfId, numberOfImages, url, size);
-
-    url = "http://127.0.0.1:8000/api/v1/titles/?genre=fantasy&sort_by=-imdb_score";
-    modelOfId = "fantasyImg";
-    await showImagesByCategory(modelOfId, numberOfImages, url, size);
-
-    url = "http://127.0.0.1:8000/api/v1/titles/?genre=animation&sort_by=-imdb_score";
-    modelOfId = "animationImg";
-    await showImagesByCategory(modelOfId, numberOfImages, url, size);
-
-}
-
-function addElementsToDiv(div, result, keys){
-    for (key of keys) {
+    for (key of KEYS) {
         let tag = document.createElement("p");
         let info;
         if(result.hasOwnProperty(key)){
@@ -184,22 +131,25 @@ function addElementsToDiv(div, result, keys){
 }
 
 async function showInfo(result){
-    // Get the modal
+    /*
+    * Show film information in the modal box and handle the events (click, close).
+    */
+
     let modal = document.getElementById("myModal");
     modal.style.display = "block";
 
-    var element = document.getElementById("modalBody");
+    let element = document.getElementById("modalBody");
 
-    var newDiv = document.createElement("div");
+    let newDiv = document.createElement("div");
     newDiv.setAttribute("id", "modalDiv");
 
-    var img = new Image();
+    let img = new Image();
     img.src = result["image_url"];
-    img.height = 90;
-    img.width = 70;
+//    img.height = 90;
+//    img.width = 70;
     newDiv.appendChild(img);
 
-    addElementsToDiv(newDiv, result, keys); // see const keys at the beginning of this script.
+    addElementsToDiv(newDiv, result, KEYS); // see const KEYS at the beginning of this script.
 
     element.appendChild(newDiv);
 
@@ -223,3 +173,139 @@ async function showInfo(result){
     }
 }
 
+async function showModalBox(data){
+    /*
+    * Show detail information of a film in a modal box.
+    */
+
+    if(document.getElementById("modalDiv")){
+        document.getElementById("modalDiv").remove();
+    }
+    await showInfo(data);
+}
+
+async function getDetailInfo(url) {
+    /*
+    * Retrieve data (type: json) from an url containing film id (e.g. "http://localhost:8000/api/v1/titles/9").
+    * This data contains detail information of the corresponding film.
+    */
+
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        return data;
+    } catch(err) {
+    // Catches errors both in fetch and response.json.
+        console.log(err);
+    }
+}
+
+async function showImage(filmUrl, imgId){
+    /*
+    * Show a film image and add onclick function to show film information.
+    */
+
+    const data = await getDetailInfo(filmUrl);
+    let imageUrl = data["image_url"];
+    let img = document.getElementById(imgId);
+    img.src = imageUrl;
+    // Add event "onclick" to display film information in a modal box
+    img.onclick = async function(){await showModalBox(data);};
+
+    let btnId = "btn_" + imgId; // e.g. model: btn_bestFilmImg0
+    let btn = document.getElementById(btnId);
+    btn.onclick = async function(){await showModalBox(data);};
+}
+
+async function showImagesById(imageIdModel, filmUrls) {
+    /*
+    * Show a set of images via theirs id and theirs urls.
+    */
+
+    try {
+        let i = 0;
+        for (filmUrl of filmUrls){
+            let filmUrl = filmUrls[i];
+            imgId = imageIdModel + i;
+            await showImage(filmUrl, imgId);
+            i++;
+        }
+    } catch(err) {
+        //catches errors
+        console.log(err);
+    }
+}
+
+async function showImagesByCategory(categoryName){
+    /*
+    * Show images for a category at the first time loaded.
+    */
+
+    await updateUrlsForDetailInfo(categoryName);
+    filmUrls = detailInfoUrls[categoryName].slice(currentPositions[categoryName], currentPositions[categoryName] + NB_IMAGES_PER_PAGE);
+    await showImagesById(imageIdModel[categoryName], filmUrls);
+
+    }
+
+async function showImagesOfAllCategories() {
+    /*
+    *Show images for all categories when the web page is loaded at the first time.
+    */
+    for(categoryName of CATEGORY_NAMES){
+        await showImagesByCategory(categoryName);
+    }
+}
+
+async function next(categoryName, imageIdModel){
+    /*
+    * Show next films (each time, show NB_IMAGES_PER_PAGE images, here NB_IMAGES_PER_PAGE = 7).
+    */
+
+    currentPositions[categoryName] += NB_IMAGES_PER_PAGE;
+    firstPosition = currentPositions[categoryName]; // First image position from the left to right.
+    filmUrls = detailInfoUrls[categoryName].slice(firstPosition, firstPosition + NB_IMAGES_PER_PAGE);
+    await showImagesById(imageIdModel, filmUrls);
+    // There is no more image url in the storage, next films can not be showed. 
+    // In this case, fetch more films and add/store them in detailInfoUrls.
+    if (firstPosition + NB_IMAGES_PER_PAGE === detailInfoUrls[categoryName].length){
+        await updateUrlsForDetailInfo(categoryName);
+    
+    }
+}
+
+async function prev(categoryName, imageIdModel){
+    /*
+    * Show previous films (each time, show NB_IMAGES_PER_PAGE images, here NB_IMAGES_PER_PAGE = 7).
+    */
+
+    if (currentPositions[categoryName] >= NB_IMAGES_PER_PAGE){
+        currentPositions[categoryName] -= NB_IMAGES_PER_PAGE;
+    }
+    firstPosition = currentPositions[categoryName]; // First image position from the left to right.
+    filmUrls = detailInfoUrls[categoryName].slice(firstPosition, firstPosition + NB_IMAGES_PER_PAGE);
+    await showImagesById(imageIdModel, filmUrls);
+}
+
+async function nextFilms(clicked_id){
+    /*
+    * Show next films by detecting category via id of next button.
+    */
+
+    idBtn = clicked_id; //this.id;
+    const words = idBtn.split('_');
+    categoryName = words[words.length -1];
+    let imageIdModel = categoryName + "Img";
+    await next(categoryName, imageIdModel);
+}
+
+async function prevFilms(clicked_id){
+    /*
+    * Show previous films by detecting category via id of previous button.
+    */
+
+    idBtn = clicked_id; //this.id;
+    const words = idBtn.split('_');
+    categoryName = words[words.length -1];
+    let imageIdModel = categoryName + "Img";
+    await prev(categoryName, imageIdModel);
+}
