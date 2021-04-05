@@ -1,15 +1,3 @@
-.center {
-  text-align: center;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 /* Style the header */
 .header {
   background-color: #f1f1f1;
@@ -18,10 +6,17 @@
   font-size: 35px;
 }
 
+/* Style the body */
+.body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Container for flexboxes */
 .row {
   display: -webkit-flex;
   display: flex;
+  margin-left: 20px;
+  margin-left: 20px;
 }
 
 /* Create three equal columns that sits next to each other */
@@ -30,15 +25,7 @@
   -ms-flex: 1;
   flex: 1;
   padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
-}
-
-
-/* Style the footer */
-.footer {
-  background-color: #f1f1f1;
-  padding: 10px;
-  text-align: center;
+ /* height: 500px;  Should be removed. Only for demonstration */
 }
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
@@ -72,18 +59,6 @@ ul {
  background-color:none;
 }
 
-img {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-/*  width: 100;
-  height=150;*/
-}
-
-img:hover {
-  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}
-
 li {
   float: left;
 }
@@ -105,54 +80,8 @@ li a:hover:not(.active) {
 .active {
   background-color: #4CAF50;
 }
-
 /*end header nav*/
 
-.grid-container {
-  display: grid;
-  /*grid-template-columns: auto auto auto auto;*/
-  /*grid-template-columns:none;*/
-  grid-template-columns: fit-content(100%);
- /*grid-template-columns: minmax(100px, 1fr);*/
-  grid-gap: 10px;
-  background-color: #2196F3;
-  padding: 10px;
-  /*object-fit:cover;
-  object-fit:fill;
-  object-fit: contain;
-  object-fit: scale-down;*/
-
-}
-
-.grid-container img {
- object-fit: cover;
- /*object-fit: contain;
- object-fit: scale-down;*/
-}
-
-.img-best{
-  object-fit: cover;
-  width: 150%;
-  height: 300;
-}
-
-/*
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-}
-
-.pagination a.active {
-  background-color: dodgerblue;
-  color: white;
-}
-
-.pagination a:hover:not(.active) {background-color: #ddd;}
-
-*/
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -192,20 +121,29 @@ li a:hover:not(.active) {
   cursor: pointer;
 }
 
-/* Best film image*/
-.container-best-film {
-  position: relative;
-  font-family: Arial;
+.center {
+  text-align: center;
+  font-weight: bold;
 }
 
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+img:hover {
+        background-color: blue;
+}
 
 .container {
   position: relative;
   width: 100%;
-  max-width: 180px;
-  /*background-color: #2196F3;*/
+  background-repeat: no-repeat;
+  /*background-size: cover;*/
+  background-size: 50%;
+  background-position: 15% 12%;
 }
-
 
 .container img {
    position: relative;
@@ -213,7 +151,41 @@ li a:hover:not(.active) {
    height: auto;
 }
 
-.container .btn {
+
+.container .text-block {
+  position: relative;
+  /*bottom: 20px;
+  right: 20px;
+  font-size: 20px;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;*/
+    top: 20%;
+  left: 60%;
+
+ /* float: center;*/
+  display: inline-block;
+  width: 500px;
+  height: 10px;
+  padding: 5px;
+  font-style: italic;
+  color: white;
+  margin-left:50px;
+  font-size:25px;
+}
+
+
+.div-background {
+    background-size: cover;
+    margin-left: 20px;
+    margin-left: 20px;
+    font-size: 120px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+}
+
+.btn {
   position: absolute;
   top: 95%;
   left: 75%;
@@ -230,143 +202,33 @@ li a:hover:not(.active) {
   border-radius: 5px;
 }
 
-.container .btn:hover {
+.btn:hover {
   background-color: black;
 }
 
-
-.container .text-block {
-  position: relative;
-  bottom: 20px;
-  right: 20px;
-  background-color:#2196F3
-  font-size: 20px;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-
-.previous {
-  background-color: #f1f1f1;
-  color: black;
-}
-
-.next {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.round {
-  border-radius: 50%;
-}
-
-/* Pagination*/
-.pagination {
+span.b {
+  float: center;
   display: inline-block;
+  width: 700px;
+  height: 10px;
+  padding: 5px;
+  font-style: italic;
+  color: white;
+  margin-left:50px;
+  border: 1px solid blue;
+  background-color: yellow;
+  font-size:25px;
 }
 
-.pagination a {
-  color: black;
+.div-test {
+    position: relative;
+  border: solid red;
+  max-width: 10ex;
+  float: right;
+  font-size:15px;
+}
+
+.h4 {
   float: left;
-  padding: 20px 40px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
-}
-
-.pagination a:hover:not(.active) {background-color: #ddd;}
-
-/*Best film*/
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
-}
-
-
-/* Caption text */
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
-
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-.img-best {
-  object-fit: cover;
-}
-
-
-.container-bis {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-.bottom-left {
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-}
-
-.grid-bis img {
- object-fit: cover;
- /*object-fit: contain;
- object-fit: scale-down;*/
-}
-
-.p-demo {
-    /*background-image: url(https://i.imgur.com/fHyEMsl.jpg);*/
-    background-size: cover;
-    margin-top: 200px;
-    font-size: 120px;
-    text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
-   /* background-repeat: repeat;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'Steelfish Rg', 'helvetica neue',
-             helvetica, arial, sans-serif;
-    font-weight: 800;
-    -webkit-font-smoothing: antialiased;*/
-}
-
-
-.div-demo {
-    /*background-image: url(https://i.imgur.com/fHyEMsl.jpg);*/
-    background-size: cover;
-    margin-top: 200px;
-    font-size: 120px;
-    background-position: center;
-     background-repeat: no-repeat;
-  /*  background-size: 50% 85%;*/
-    /*text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;*/
-   /* background-repeat: repeat;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'Steelfish Rg', 'helvetica neue',
-             helvetica, arial, sans-serif;
-    font-weight: 800;
-    -webkit-font-smoothing: antialiased;*/
+  margin: 0;
 }

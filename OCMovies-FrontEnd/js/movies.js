@@ -57,24 +57,20 @@ async function showTheBestFilm() {
         let result = results[0]; // The first element is the best score.
         let image_url = result["image_url"];
         let filmUrl = result["url"];
-        let imgId = "theBestFilmImg";
-        await showImage(filmUrl, imgId);
         // Add text to image
         data = await getDetailInfo(filmUrl);
-        let element = document.getElementById("info_theBestFilmImg");
-        let info = "The best film: " + "<br>" + data["title"] + "<br>" + data["description"];
-        element.innerHTML = info;
-//        image_url = 'https://i.imgur.com/fHyEMsl.jpg';
         element = document.getElementById("theBestFilm");
+        if(element){alert("ok");}
 //        if (element){alert(image_url);}
-//        element.style.backgroundColor = "green";
+        element.style.backgroundColor = "#2196F3";
+        element.style.height = "350px";
         element.style.backgroundImage = "url("+image_url+")";
         element = document.getElementById("title");
         element.innerHTML = data["title"];
          element = document.getElementById("description");
         element.innerHTML = data["description"];
 
-        let btn = document.getElementById("demo");
+        let btn = document.getElementById("btn_theBestFilmImg");
         btn.onclick = async function(){await showModalBox(data);};
     }
     catch(err) {
