@@ -64,6 +64,18 @@ async function showTheBestFilm() {
         let element = document.getElementById("info_theBestFilmImg");
         let info = "The best film: " + "<br>" + data["title"] + "<br>" + data["description"];
         element.innerHTML = info;
+//        image_url = 'https://i.imgur.com/fHyEMsl.jpg';
+        element = document.getElementById("theBestFilm");
+//        if (element){alert(image_url);}
+//        element.style.backgroundColor = "green";
+        element.style.backgroundImage = "url("+image_url+")";
+        element = document.getElementById("title");
+        element.innerHTML = data["title"];
+         element = document.getElementById("description");
+        element.innerHTML = data["description"];
+
+        let btn = document.getElementById("demo");
+        btn.onclick = async function(){await showModalBox(data);};
     }
     catch(err) {
         // catches errors
@@ -155,7 +167,6 @@ async function showInfo(result){
 
     // Get the <span> element that closes the modal
     let span = document.getElementsByClassName("close")[0];
-
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
