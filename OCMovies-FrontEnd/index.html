@@ -10,11 +10,13 @@
 </head>
 
 <body>
+<div id="bloc_page">
 
 <div class="header">
     <ul>
         <li style="float:left">JustStreamIt</li>
         <ul style="float:right">
+
             <li><a href="#accueil">Accueil</a></li>
             <li ><a href="#categories">Catégories</a></li>
         </ul>
@@ -49,7 +51,7 @@
 <div class="center"><p><h2>Top Rated Films</h2></p> </div>
 
 <div class="row">
-    <div><button id="btn_prev_bestFilm", onclick="prevFilms(this.id)">❮</button></div>
+    <div><button class="vertical-center" id="btn_prev_bestFilm", onclick="prevFilms(this.id)">❮</button></div>
 
     <div class="column">
         <div class="container">
@@ -100,7 +102,7 @@
         </div>
     </div>
 
-    <div><button id="btn_next_bestFilm" onclick=" nextFilms(this.id)">❯</button></div>
+    <div><button class="vertical-center" id="btn_next_bestFilm" onclick=" nextFilms(this.id)">❯</button></div>
 
 </div>
 <!--End of best films-->
@@ -109,7 +111,7 @@
 <div class="center"><p><h2>Action</h2></p> </div>
 
 <div class="row">
-    <div><button id="btn_prev_action", onclick="prevFilms(this.id)">❮</button></div>
+    <div><button class="vertical-center" id="btn_prev_action", onclick="prevFilms(this.id)">❮</button></div>
 
     <div class="column">
         <div class="container">
@@ -160,7 +162,7 @@
         </div>
     </div>
 
-    <div><button id="btn_next_action" onclick=" nextFilms(this.id)">❯</button></div>
+    <div><button class="vertical-center" id="btn_next_action" onclick=" nextFilms(this.id)">❯</button></div>
 
 </div>
 <!--End of genre: action-->
@@ -169,7 +171,7 @@
 <div class="center"><p><h2>Fantasy</h2></p> </div>
 
 <div class="row">
-    <div><button id="btn_prev_fantasy", onclick="prevFilms(this.id)">❮</button></div>
+    <div><button class="vertical-center" id="btn_prev_fantasy", onclick="prevFilms(this.id)">❮</button></div>
 
     <div class="column">
         <div class="container">
@@ -220,7 +222,7 @@
         </div>
     </div>
 
-    <div><button id="btn_next_fantasy" onclick=" nextFilms(this.id)">❯</button></div>
+    <div><button class="vertical-center" id="btn_next_fantasy" onclick=" nextFilms(this.id)">❯</button></div>
 </div>
 <!--End of genre: fantasy-->
 
@@ -229,7 +231,7 @@
 
 <div class="row">
 
-    <div><button id="btn_prev_animation", onclick="prevFilms(this.id)">❮</button></div>
+    <div><button class="vertical-center" id="btn_prev_animation", onclick="prevFilms(this.id)">❮</button></div>
 
     <div class="column">
         <div class="container">
@@ -280,7 +282,7 @@
         </div>
     </div>
 
-    <div><button id="btn_next_animation" onclick=" nextFilms(this.id)">❯</button></div>
+    <div><button class="vertical-center" id="btn_next_animation" onclick=" nextFilms(this.id)">❯</button></div>
 </div>
 
 <!--End of genre: animation-->
@@ -288,7 +290,7 @@
 <!--a vanilla js-->
 <script src="js/movies.js"></script>
 <!--End of script-->
-
+</div> <!--End div bloc_page-->
 </body>
 </html>
 

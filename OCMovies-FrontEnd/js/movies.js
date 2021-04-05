@@ -60,8 +60,6 @@ async function showTheBestFilm() {
         // Add text to image
         data = await getDetailInfo(filmUrl);
         element = document.getElementById("theBestFilm");
-        if(element){alert("ok");}
-//        if (element){alert(image_url);}
         element.style.backgroundColor = "#2196F3";
         element.style.height = "350px";
         element.style.backgroundImage = "url("+image_url+")";
