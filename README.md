@@ -1,4 +1,7 @@
-# 1. Launch the part of API
+# 1. About the project
+The goal of this project is to develop the frontend part for streaming films of some categories.
+The request is realized with API developed at [this github link](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR.git). 
+# 2. Launch the API
 ```bash
 sudo apt install -y python3-venv
 mkdir OCProject6
@@ -11,11 +14,10 @@ pip install -r requirements.txt
 python manage.py create_db
 python manage.py runserver
 ```
-
-# 2. Launch the part of website
-In "OCProject6" directory, go to the "OCMovies-FrontEnd" directory and open the file "index.html".
+# 3. Launch the web page 
+In "OCProject6" directory, go to the "OCMovies-FrontEnd" directory and open the file "index.html". For example:
 ```bash
 cd OCMovies-FrontEnd
 firefox index.html &
 ```
-Click on the page, the page will load image films
+At the first time, the page will be loaded with image films (in this version, 7 films sorted by imdb score will be displayed for each category). When a film image or a button 'More info' is clicked, the detail film information will be showed in a modal box. The next/previous films will be showed when the next/previous button is clicked.
