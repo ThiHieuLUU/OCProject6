@@ -1,40 +1,56 @@
+/**
+ * This script allows to fetch film urls and displays film information.
+ * When a film image or a button ( named "More info" here) is clicked, detail film information will be showed.
+ * For each request realized on multiple pages of server, 35 film urls are fetched. 
+ * (here because 35 = 7 * 5,
+ * 7 is the the number of images displayed per category,
+ * 5 is the number of film urls obtained for a request realized on one server page.)
+ */
+ 
+// Key to retrieve film information.
 const KEYS = ["title", "genres", "date_published", "rated", "imdb_score", "directors", "actors", "duration",
 "countries", "description"];
 
+// Categories will be showed in html file.
 const CATEGORY_NAMES = ["bestFilm", "action", "fantasy", "animation"];
-const NB_IMAGES_PER_PAGE = 7; // Number of images is displayed for each category.
-let SIZE = 35; // Each time fetch 35 films for each category.
 
-let detailInfoUrls ={}; // To store all fetched url films to get detail film information.
-let currentPositions = {}; //Current fist image position displayed from the left to the right of the screen.
-let imageIdModel = {}; // The model of image id which is defined for each category in index.html.
+// Number of images is displayed for each category.
+const NB_IMAGES_PER_PAGE = 7; 
+
+// Each request realized, fetch 35 films for one chosen category.
+let SIZE = 35; 
+
+let detailInfoUrls ={}; // To store all fetched url films which allow to access the detail film information.
+let currentPositions = {}; // Mark the current fist image position displayed from the left to the right of the screen.
+let imageIdModels = {}; // The model of image id which is defined for each category in index.html.
 let nextUrls = {}; // Mark the url by category to can be continued fetching at the next time.
-let theBestFilmImgId = "theBestFilmImg"
+let theBestFilmImgId = "theBestFilmImg";
 
+// Load page at the first time.
 document.getElementsByTagName("body").onload = loadImages();
 
+/**
+ * Initialize some declared parameters.
+ */
 function initializeParameters(){
-    /*
-    * Initialize some declared parameters.
-    */
-
     for(category of CATEGORY_NAMES){
         detailInfoUrls[category] = [];
-        currentPositions[category] = 0;// Position of the first image from the left to the right.
-        imageIdModel[category] = category + "Img";// e.g. Model of image id: actionImg -> id: actionImg1, actionImg2, ect.
+        currentPositions[category] = 0; // Position of the first image from the left to the right.
+        imageIdModels[category] = category + "Img";// Model of an image id: actionImg => id: actionImg1, actionImg2, ect.
     }
-
-    nextUrls[CATEGORY_NAMES[0]] = "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score";
-    nextUrls[CATEGORY_NAMES[1]] = "http://127.0.0.1:8000/api/v1/titles/?genre=action&sort_by=-imdb_score";
-    nextUrls[CATEGORY_NAMES[2]] = "http://127.0.0.1:8000/api/v1/titles/?genre=fantasy&sort_by=-imdb_score";
-    nextUrls[CATEGORY_NAMES[3]] = "http://127.0.0.1:8000/api/v1/titles/?genre=animation&sort_by=-imdb_score";
+    
+    // Fetch by category and sorted by imdb score.
+    nextUrls[CATEGORY_NAMES[0]] = "http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score"; // best film
+    nextUrls[CATEGORY_NAMES[1]] = "http://127.0.0.1:8000/api/v1/titles/?genre=action&sort_by=-imdb_score"; // action
+    nextUrls[CATEGORY_NAMES[2]] = "http://127.0.0.1:8000/api/v1/titles/?genre=fantasy&sort_by=-imdb_score"; // fantasy
+    nextUrls[CATEGORY_NAMES[3]] = "http://127.0.0.1:8000/api/v1/titles/?genre=animation&sort_by=-imdb_score";//animation
+    
 }
 
+/**
+ * Function is called when the page is loaded at the first time.
+ */
 async function loadImages() {
-    /*
-    * Function is called when the page is loaded at the first time.
-    */
-
     try {
         initializeParameters();
         await showTheBestFilm();
@@ -44,30 +60,34 @@ async function loadImages() {
     }
 }
 
+/**
+ * Show the best film which has the best imdb score.
+ */
 async function showTheBestFilm() {
-    /*
-    * Show the best film which has the best imdb score.
-    */
-
     try{
         let url = nextUrls[CATEGORY_NAMES[0]];
         let response = await fetch(url);
         let data = await response.json();
         let results = await data.results;
         let result = results[0]; // The first element is the best score.
-        let image_url = result["image_url"];
+        let imageUrl = result["image_url"];
         let filmUrl = result["url"];
         // Add text to image
         data = await getDetailInfo(filmUrl);
         element = document.getElementById("theBestFilm");
+
+        // Set or change some properties to the display of the best film.
         element.style.backgroundColor = "#2196F3";
         element.style.height = "350px";
-        element.style.backgroundImage = "url("+image_url+")";
+        element.style.backgroundImage = "url("+imageUrl+")"; // The best film is used as the background here.
+
+        // Add information to the display
         element = document.getElementById("title");
         element.innerHTML = data["title"];
-         element = document.getElementById("description");
+        element = document.getElementById("description");
         element.innerHTML = data["description"];
 
+        // Call the modal box when the button is clicked.
         let btn = document.getElementById("btn_theBestFilmImg");
         btn.onclick = async function(){await showModalBox(data);};
     }
@@ -77,13 +97,12 @@ async function showTheBestFilm() {
     }
 }
 
+/**
+ * Fetch multiple pages to retrieve a list of urls where each url leads to the detail information for each film.
+ * SIZE is the number of urls will be fetched. SIZE will be rounded by the available element on the fetched page.
+ * e.g. each fetched page contains 5 elements, SIZE = 18 => SIZE after fetching will be the ((18 // 5) + 1)*5
+ */
 async function updateUrlsForDetailInfo(categoryName) {
-    /*
-    * Fetch multiple pages to retrieve a list of urls where each url leads to the detail information for each film.
-    * SIZE is the number of urls will be fetched. SIZE will be rounded by the available element on the fetched page.
-    * e.g. each fetched page contains 5 elements, SIZE = 18 => SIZE after fetching will be the ((18 // 5) + 1)*5
-    */
-
     try{
         let url = nextUrls[categoryName];
         let nbOfItems = 0;
@@ -93,8 +112,8 @@ async function updateUrlsForDetailInfo(categoryName) {
 
             const results = data.results;
             for (result of results){
-                let film_url = result["url"];
-                detailInfoUrls[categoryName].push(film_url);
+                let filmUrl = result["url"];
+                detailInfoUrls[categoryName].push(filmUrl);
                 nbOfItems ++;
             }
             url = data.next;
@@ -106,20 +125,18 @@ async function updateUrlsForDetailInfo(categoryName) {
     }
 }
 
+/**
+ * Build a "div" then add film information to display in the modal box.
+ */
 function addElementsToDiv(div, result, KEYS){
-    /*
-    * Build a div then add film information to display in the modal box.
-    */
-
     for (key of KEYS) {
         let tag = document.createElement("p");
         let info;
         if(result.hasOwnProperty(key)){
             info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + result[key];
-
         }else{
-            let no_info = "Not available"
-            info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + no_info;
+            let noInfo = "Not available"
+            info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + noInfo;
         }
         // Deal to some characters
         if (info.includes("_")){
@@ -136,11 +153,10 @@ function addElementsToDiv(div, result, KEYS){
     }
 }
 
+/**
+ * Show film information in the modal box and handle the events (click, close).
+ */
 async function showInfo(result){
-    /*
-    * Show film information in the modal box and handle the events (click, close).
-    */
-
     let modal = document.getElementById("myModal");
     modal.style.display = "block";
 
@@ -151,8 +167,6 @@ async function showInfo(result){
 
     let img = new Image();
     img.src = result["image_url"];
-//    img.height = 90;
-//    img.width = 70;
     newDiv.appendChild(img);
 
     addElementsToDiv(newDiv, result, KEYS); // see const KEYS at the beginning of this script.
@@ -164,37 +178,34 @@ async function showInfo(result){
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-      modal.style.display = "none";
-      document.getElementById("modalDiv").remove();
+        modal.style.display = "none";
+        document.getElementById("modalDiv").remove();
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-              document.getElementById("modalDiv").remove();
-
-      }
+        if (event.target == modal) {
+            modal.style.display = "none";
+            document.getElementById("modalDiv").remove();
+        }
     }
 }
 
+/**
+ * Show detail information of a film in a modal box.
+ */
 async function showModalBox(data){
-    /*
-    * Show detail information of a film in a modal box.
-    */
-
     if(document.getElementById("modalDiv")){
         document.getElementById("modalDiv").remove();
     }
     await showInfo(data);
 }
 
+/**
+ * Retrieve data (type: json) from an url containing film id (e.g. "http://localhost:8000/api/v1/titles/9").
+ * This data contains detail information of the corresponding film.
+ */
 async function getDetailInfo(url) {
-    /*
-    * Retrieve data (type: json) from an url containing film id (e.g. "http://localhost:8000/api/v1/titles/9").
-    * This data contains detail information of the corresponding film.
-    */
-
     try {
         let response = await fetch(url);
         let data = await response.json();
@@ -205,11 +216,10 @@ async function getDetailInfo(url) {
     }
 }
 
+/**
+ * Show a film image and add onclick function to show film information.
+ */
 async function showImage(filmUrl, imgId){
-    /*
-    * Show a film image and add onclick function to show film information.
-    */
-
     const data = await getDetailInfo(filmUrl);
     let imageUrl = data["image_url"];
     let img = document.getElementById(imgId);
@@ -222,11 +232,10 @@ async function showImage(filmUrl, imgId){
     btn.onclick = async function(){await showModalBox(data);};
 }
 
+/**
+ * Show a set of images via theirs id and theirs urls.
+ */
 async function showImagesById(imageIdModel, filmUrls) {
-    /*
-    * Show a set of images via theirs id and theirs urls.
-    */
-
     try {
         let i = 0;
         for (filmUrl of filmUrls){
@@ -241,48 +250,47 @@ async function showImagesById(imageIdModel, filmUrls) {
     }
 }
 
+/**
+ * Show images for a category at the first time loaded.
+ */
 async function showImagesByCategory(categoryName){
-    /*
-    * Show images for a category at the first time loaded.
-    */
-
     await updateUrlsForDetailInfo(categoryName);
     filmUrls = detailInfoUrls[categoryName].slice(currentPositions[categoryName], currentPositions[categoryName] + NB_IMAGES_PER_PAGE);
-    await showImagesById(imageIdModel[categoryName], filmUrls);
+    await showImagesById(imageIdModels[categoryName], filmUrls);
 
     }
 
+/**
+ *Show images for all categories when the web page is loaded at the first time.
+ */
 async function showImagesOfAllCategories() {
-    /*
-    *Show images for all categories when the web page is loaded at the first time.
-    */
     for(categoryName of CATEGORY_NAMES){
         await showImagesByCategory(categoryName);
     }
 }
 
+/**
+ * Show next films (each time, show NB_IMAGES_PER_PAGE images, here NB_IMAGES_PER_PAGE = 7).
+ */
 async function next(categoryName, imageIdModel){
-    /*
-    * Show next films (each time, show NB_IMAGES_PER_PAGE images, here NB_IMAGES_PER_PAGE = 7).
-    */
-
     currentPositions[categoryName] += NB_IMAGES_PER_PAGE;
     firstPosition = currentPositions[categoryName]; // First image position from the left to right.
     filmUrls = detailInfoUrls[categoryName].slice(firstPosition, firstPosition + NB_IMAGES_PER_PAGE);
     await showImagesById(imageIdModel, filmUrls);
-    // There is no more image url in the storage, next films can not be showed. 
-    // In this case, fetch more films and add/store them in detailInfoUrls.
+    /*
+     *There is no more image url in the storage, next films can not be showed. 
+     *In this case, fetch more films and add/store them in detailInfoUrls.
+     */
     if (firstPosition + NB_IMAGES_PER_PAGE === detailInfoUrls[categoryName].length){
         await updateUrlsForDetailInfo(categoryName);
     
     }
 }
 
+/**
+ * Show previous films (each time, show NB_IMAGES_PER_PAGE images, here NB_IMAGES_PER_PAGE = 7).
+ */
 async function prev(categoryName, imageIdModel){
-    /*
-    * Show previous films (each time, show NB_IMAGES_PER_PAGE images, here NB_IMAGES_PER_PAGE = 7).
-    */
-
     if (currentPositions[categoryName] >= NB_IMAGES_PER_PAGE){
         currentPositions[categoryName] -= NB_IMAGES_PER_PAGE;
     }
@@ -291,24 +299,22 @@ async function prev(categoryName, imageIdModel){
     await showImagesById(imageIdModel, filmUrls);
 }
 
-async function nextFilms(clicked_id){
-    /*
-    * Show next films by detecting category via id of next button.
-    */
-
-    idBtn = clicked_id; //this.id;
+/**
+ * Show next films by detecting category via id of next button.
+ */
+async function nextFilms(clickedId){
+    idBtn = clickedId; // this.id in html file.
     const words = idBtn.split('_');
     categoryName = words[words.length -1];
     let imageIdModel = categoryName + "Img";
     await next(categoryName, imageIdModel);
 }
 
-async function prevFilms(clicked_id){
-    /*
-    * Show previous films by detecting category via id of previous button.
-    */
-
-    idBtn = clicked_id; //this.id;
+/**
+ * Show previous films by detecting category via id of previous button.
+ */
+async function prevFilms(clickedId){
+    idBtn = clickedId; // this.id in html file.
     const words = idBtn.split('_');
     categoryName = words[words.length -1];
     let imageIdModel = categoryName + "Img";
