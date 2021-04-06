@@ -2,295 +2,291 @@
 <html lang="en">
 
 <head>
-    <title>CSS Template</title>
+    <title>Movie Streaming</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--</style>-->
     <link href="css/movies.css" rel="stylesheet" type="text/css"/>
-
-<!--    <link rel="stylesheet" href="css/movies.css">-->
 </head>
 
 <body>
-<div id="bloc_page">
+    <div id="bloc_page">
 
-<div class="header">
-    <ul>
-<!--    <p id="p-header">JustStreamIt</p>-->
-        <li>JustStreamIt</li>
-        <li ><a href="#categories">Catégories</a></li>
-        <li><a href="#accueil">Accueil</a></li>
-    </ul>
-</div>
-
-<!-- Begin the best film-->
-<div class="container" id="theBestFilm">
-    <button class="btn" id="btn_theBestFilmImg">More info</button>
-    <div class="text-block">
-        <h1 id="title"></h1>
-        <p id="description"></p>
-    </div>
-</div>
-<!-- Begin the Modal Box-->
-
-<!-- Begin the Modal Box-->
-<div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>Film Information</h2>
+        <div class="header">
+            <ul>
+                <li>JustStreamIt</li>
+                <li ><a href="#categories">Catégories</a></li>
+                <li><a href="#accueil">Accueil</a></li>
+            </ul>
         </div>
 
-        <div class="modal-body" id="modalBody"></div>
-    </div>
-</div>
-<!-- End the Modal Box-->
-
-<!--Start of best films-->
-<div class="center"><p><h2>Top Rated Films</h2></p> </div>
-
-<div class="row">
-    <div><button class="vertical-center" id="btn_prev_bestFilm", onclick="prevFilms(this.id)">❮</button></div>
-
-    <div class="column">
-        <div class="container">
-            <img id="bestFilmImg0"/>
-            <button class="btn" id="btn_bestFilmImg0">More info</button>
+        <!-- Begin the best film-->
+        <div class="container" id="theBestFilm">
+            <button class="btn" id="btn_theBestFilmImg">More info</button>
+            <div class="text-block">
+                <h1 id="title">Title</h1>
+                <p id="description">Decription</p>
+            </div>
         </div>
-    </div>
+        <!-- Begin the Modal Box-->
 
-    <div class="column">
-        <div class="container">
-            <img id="bestFilmImg1"/>
-            <button class="btn" id="btn_bestFilmImg1">More info</button>
+        <!-- Begin the Modal Box-->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Film Information</h2>
+                </div>
+
+                <div class="modal-body" id="modalBody"></div>
+            </div>
         </div>
-    </div>
+        <!-- End the Modal Box-->
 
-    <div class="column">
-        <div class="container">
-            <img id="bestFilmImg2"/>
-            <button class="btn" id="btn_bestFilmImg2">More info</button>
+        <!--Start of best films-->
+        <div class="center"><h2>Top Rated Films</h2></div>
+
+        <div class="row">
+            <div><button class="vertical-center" id="btn_prev_bestFilm" onclick="prevFilms(this.id)">❮</button></div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="bestFilmImg0" src="#" alt=""/>
+                    <button class="btn" id="btn_bestFilmImg0">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="bestFilmImg1" src="#" alt=""/>
+                    <button class="btn" id="btn_bestFilmImg1">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="bestFilmImg2" src="#" alt=""/>
+                    <button class="btn" id="btn_bestFilmImg2">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="bestFilmImg3" src="#" alt=""/>
+                    <button class="btn" id="btn_bestFilmImg3">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="bestFilmImg4" src="#" alt=""/>
+                    <button class="btn" id="btn_bestFilmImg4">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="bestFilmImg5" src="#" alt=""/>
+                    <button class="btn" id="btn_bestFilmImg5">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="bestFilmImg6" src="#" alt=""/>
+                    <button class="btn" id="btn_bestFilmImg6">More info</button>
+                </div>
+            </div>
+
+            <div><button class="vertical-center" id="btn_next_bestFilm" onclick=" nextFilms(this.id)">❯</button></div>
+
         </div>
-    </div>
+        <!--End of best films-->
 
-    <div class="column">
-        <div class="container">
-            <img id="bestFilmImg3"/>
-            <button class="btn" id="btn_bestFilmImg3">More info</button>
+        <!--Start of genre: action-->
+        <div class="center"><h2>Action</h2></div>
+
+        <div class="row">
+            <div><button class="vertical-center" id="btn_prev_action" onclick="prevFilms(this.id)">❮</button></div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="actionImg0" src="#" alt=""/>
+                    <button class="btn" id="btn_actionImg0">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="actionImg1" src="#" alt=""/>
+                    <button class="btn" id="btn_actionImg1">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="actionImg2" src="#" alt=""/>
+                    <button class="btn" id="btn_actionImg2">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="actionImg3" src="#" alt=""/>
+                    <button class="btn" id="btn_actionImg3">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="actionImg4" src="#" alt=""/>
+                    <button class="btn" id="btn_actionImg4">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="actionImg5" src="#" alt=""/>
+                    <button class="btn" id="btn_actionImg5">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="actionImg6" src="#" alt=""/>
+                    <button class="btn" id="btn_actionImg6">More info</button>
+                </div>
+            </div>
+
+            <div><button class="vertical-center" id="btn_next_action" onclick=" nextFilms(this.id)">❯</button></div>
+
         </div>
-    </div>
+        <!--End of genre: action-->
 
-    <div class="column">
-        <div class="container">
-            <img id="bestFilmImg4"/>
-            <button class="btn" id="btn_bestFilmImg4">More info</button>
+        <!--Start of genre: fantasy-->
+        <div class="center"><h2>Fantasy</h2></div>
+
+        <div class="row">
+            <div><button class="vertical-center" id="btn_prev_fantasy" onclick="prevFilms(this.id)">❮</button></div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="fantasyImg0" src="#" alt=""/>
+                    <button class="btn" id="btn_fantasyImg0">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="fantasyImg1" src="#" alt=""/>
+                    <button class="btn" id="btn_fantasyImg1">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="fantasyImg2" src="#" alt=""/>
+                    <button class="btn" id="btn_fantasyImg2">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="fantasyImg3" src="#" alt=""/>
+                    <button class="btn" id="btn_fantasyImg3">More info</button>
+                </div>
+            </div>
+
+                <div class="column">
+                <div class="container">
+                    <img id="fantasyImg4" src="#" alt=""/>
+                    <button class="btn" id="btn_fantasyImg4">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="fantasyImg5" src="#" alt=""/>
+                    <button class="btn" id="btn_fantasyImg5">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="fantasyImg6" src="#" alt=""/>
+                    <button class="btn" id="btn_fantasyImg6">More info</button>
+                </div>
+            </div>
+
+            <div><button class="vertical-center" id="btn_next_fantasy" onclick=" nextFilms(this.id)">❯</button></div>
         </div>
-    </div>
+        <!--End of genre: fantasy-->
 
-    <div class="column">
-        <div class="container">
-            <img id="bestFilmImg5"/>
-            <button class="btn" id="btn_bestFilmImg5">More info</button>
+        <!--Start of genre: animation-->
+        <div class="center"><h2>Animation</h2></div>
+
+        <div class="row">
+
+            <div><button class="vertical-center" id="btn_prev_animation" onclick="prevFilms(this.id)">❮</button></div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="animationImg0" src="#" alt=""/>
+                    <button class="btn" id="btn_animationImg0">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="animationImg1" src="#" alt=""/>
+                    <button class="btn" id="btn_animationImg1">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="animationImg2" src="#" alt=""/>
+                    <button class="btn" id="btn_animationImg2">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="animationImg3" src="#" alt=""/>
+                    <button class="btn" id="btn_animationImg3">More info</button>
+                </div>
+            </div>
+
+                <div class="column">
+                <div class="container">
+                    <img id="animationImg4" src="#" alt=""/>
+                    <button class="btn" id="btn_animationImg4">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="animationImg5" src="#" alt=""/>
+                    <button class="btn" id="btn_animationImg5">More info</button>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="container">
+                    <img id="animationImg6" src="#" alt=""/>
+                    <button class="btn" id="btn_animationImg6">More info</button>
+                </div>
+            </div>
+
+            <div><button class="vertical-center" id="btn_next_animation" onclick=" nextFilms(this.id)">❯</button></div>
         </div>
-    </div>
+        <!--End of genre: animation-->
 
-    <div class="column">
-        <div class="container">
-            <img id="bestFilmImg6"/>
-            <button class="btn" id="btn_bestFilmImg6">More info</button>
-        </div>
-    </div>
+    </div> <!--End div bloc_page-->
 
-    <div><button class="vertical-center" id="btn_next_bestFilm" onclick=" nextFilms(this.id)">❯</button></div>
-
-</div>
-<!--End of best films-->
-
-<!--Start of genre: action-->
-<div class="center"><p><h2>Action</h2></p> </div>
-
-<div class="row">
-    <div><button class="vertical-center" id="btn_prev_action", onclick="prevFilms(this.id)">❮</button></div>
-
-    <div class="column">
-        <div class="container">
-            <img id="actionImg0"/>
-            <button class="btn" id="btn_actionImg0">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="actionImg1"/>
-            <button class="btn" id="btn_actionImg1">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="actionImg2"/>
-            <button class="btn" id="btn_actionImg2">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="actionImg3"/>
-            <button class="btn" id="btn_actionImg3">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="actionImg4"/>
-            <button class="btn" id="btn_actionImg4">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="actionImg5"/>
-            <button class="btn" id="btn_actionImg5">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="actionImg6"/>
-            <button class="btn" id="btn_actionImg6">More info</button>
-        </div>
-    </div>
-
-    <div><button class="vertical-center" id="btn_next_action" onclick=" nextFilms(this.id)">❯</button></div>
-
-</div>
-<!--End of genre: action-->
-
-<!--Start of genre: fantasy-->
-<div class="center"><p><h2>Fantasy</h2></p> </div>
-
-<div class="row">
-    <div><button class="vertical-center" id="btn_prev_fantasy", onclick="prevFilms(this.id)">❮</button></div>
-
-    <div class="column">
-        <div class="container">
-            <img id="fantasyImg0"/>
-            <button class="btn" id="btn_fantasyImg0">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="fantasyImg1"/>
-            <button class="btn" id="btn_fantasyImg1">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="fantasyImg2"/>
-            <button class="btn" id="btn_fantasyImg2">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="fantasyImg3"/>
-            <button class="btn" id="btn_fantasyImg3">More info</button>
-        </div>
-    </div>
-
-        <div class="column">
-        <div class="container">
-            <img id="fantasyImg4"/>
-            <button class="btn" id="btn_fantasyImg4">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="fantasyImg5"/>
-            <button class="btn" id="btn_fantasyImg5">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="fantasyImg6"/>
-            <button class="btn" id="btn_fantasyImg6">More info</button>
-        </div>
-    </div>
-
-    <div><button class="vertical-center" id="btn_next_fantasy" onclick=" nextFilms(this.id)">❯</button></div>
-</div>
-<!--End of genre: fantasy-->
-
-<!--Start of genre: animation-->
-<div class="center"><p><h2>Animation</h2></p> </div>
-
-<div class="row">
-
-    <div><button class="vertical-center" id="btn_prev_animation", onclick="prevFilms(this.id)">❮</button></div>
-
-    <div class="column">
-        <div class="container">
-            <img id="animationImg0"/>
-            <button class="btn" id="btn_animationImg0">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="animationImg1"/>
-            <button class="btn" id="btn_animationImg1">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="animationImg2"/>
-            <button class="btn" id="btn_animationImg2">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="animationImg3"/>
-            <button class="btn" id="btn_animationImg3">More info</button>
-        </div>
-    </div>
-
-        <div class="column">
-        <div class="container">
-            <img id="animationImg4"/>
-            <button class="btn" id="btn_animationImg4">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="animationImg5"/>
-            <button class="btn" id="btn_animationImg5">More info</button>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="container">
-            <img id="animationImg6"/>
-            <button class="btn" id="btn_animationImg6">More info</button>
-        </div>
-    </div>
-
-    <div><button class="vertical-center" id="btn_next_animation" onclick=" nextFilms(this.id)">❯</button></div>
-</div>
-
-<!--End of genre: animation-->
-
-<!--a vanilla js-->
-<script src="js/movies.js"></script>
-<!--End of script-->
-</div> <!--End div bloc_page-->
+    <!-- vanilla js-->
+    <script src="js/movies.js"></script>
+    <!--End of script-->
 </body>
 </html>
 

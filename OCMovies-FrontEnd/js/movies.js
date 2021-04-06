@@ -1,3 +1,5 @@
+/* jshint esversion: 8 */
+
 /**
  * This script allows to fetch film urls and displays film information.
  * When a film image or a button ( named "More info" here) is clicked, detail film information will be showed.
@@ -24,7 +26,6 @@ let detailInfoUrls ={}; // To store all fetched url films which allow to access 
 let currentPositions = {}; // Mark the current fist image position displayed from the left to the right of the screen.
 let imageIdModels = {}; // The model of image id which is defined for each category in index.html.
 let nextUrls = {}; // Mark the url by category to can be continued fetching at the next time.
-let theBestFilmImgId = "theBestFilmImg";
 
 // Load page at the first time.
 document.getElementsByTagName("body").onload = loadImages();
@@ -33,7 +34,7 @@ document.getElementsByTagName("body").onload = loadImages();
  * Initialize some declared parameters.
  */
 function initializeParameters(){
-    for(category of CATEGORY_NAMES){
+    for(let category of CATEGORY_NAMES){
         detailInfoUrls[category] = [];
         currentPositions[category] = 0; // Position of the first image from the left to the right.
         imageIdModels[category] = category + "Img";// Model of an image id: actionImg => id: actionImg1, actionImg2, ect.
@@ -74,7 +75,7 @@ async function showTheBestFilm() {
         let filmUrl = result["url"];
         // Add text to image
         data = await getDetailInfo(filmUrl);
-        element = document.getElementById("theBestFilm");
+        let element = document.getElementById("theBestFilm");
 
         // Set or change some properties to the display of the best film.
         element.style.backgroundColor = "#2196F3";
@@ -111,7 +112,7 @@ async function updateUrlsForDetailInfo(categoryName) {
             const data = await res.json();
 
             const results = data.results;
-            for (result of results){
+            for (let result of results){
                 let filmUrl = result["url"];
                 detailInfoUrls[categoryName].push(filmUrl);
                 nbOfItems ++;
@@ -129,13 +130,13 @@ async function updateUrlsForDetailInfo(categoryName) {
  * Build a "div" then add film information to display in the modal box.
  */
 function addElementsToDiv(div, result, KEYS){
-    for (key of KEYS) {
+    for (let key of KEYS) {
         let tag = document.createElement("p");
         let info;
         if(result.hasOwnProperty(key)){
             info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + result[key];
         }else{
-            let noInfo = "Not available"
+            let noInfo = "Not available";
             info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + noInfo;
         }
         // Deal to some characters
@@ -180,7 +181,7 @@ async function showInfo(result){
     span.onclick = function() {
         modal.style.display = "none";
         document.getElementById("modalDiv").remove();
-    }
+    };
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
@@ -188,7 +189,7 @@ async function showInfo(result){
             modal.style.display = "none";
             document.getElementById("modalDiv").remove();
         }
-    }
+    };
 }
 
 /**
@@ -238,9 +239,8 @@ async function showImage(filmUrl, imgId){
 async function showImagesById(imageIdModel, filmUrls) {
     try {
         let i = 0;
-        for (filmUrl of filmUrls){
-            let filmUrl = filmUrls[i];
-            imgId = imageIdModel + i;
+        for (let filmUrl of filmUrls){
+            let imgId = imageIdModel + i;
             await showImage(filmUrl, imgId);
             i++;
         }
@@ -255,7 +255,8 @@ async function showImagesById(imageIdModel, filmUrls) {
  */
 async function showImagesByCategory(categoryName){
     await updateUrlsForDetailInfo(categoryName);
-    filmUrls = detailInfoUrls[categoryName].slice(currentPositions[categoryName], currentPositions[categoryName] + NB_IMAGES_PER_PAGE);
+    let filmUrls = detailInfoUrls[categoryName].slice(currentPositions[categoryName], currentPositions[categoryName] +
+    NB_IMAGES_PER_PAGE);
     await showImagesById(imageIdModels[categoryName], filmUrls);
 
     }
@@ -264,7 +265,7 @@ async function showImagesByCategory(categoryName){
  *Show images for all categories when the web page is loaded at the first time.
  */
 async function showImagesOfAllCategories() {
-    for(categoryName of CATEGORY_NAMES){
+    for(let categoryName of CATEGORY_NAMES){
         await showImagesByCategory(categoryName);
     }
 }
@@ -274,8 +275,8 @@ async function showImagesOfAllCategories() {
  */
 async function next(categoryName, imageIdModel){
     currentPositions[categoryName] += NB_IMAGES_PER_PAGE;
-    firstPosition = currentPositions[categoryName]; // First image position from the left to right.
-    filmUrls = detailInfoUrls[categoryName].slice(firstPosition, firstPosition + NB_IMAGES_PER_PAGE);
+    let firstPosition = currentPositions[categoryName]; // First image position from the left to right.
+    let filmUrls = detailInfoUrls[categoryName].slice(firstPosition, firstPosition + NB_IMAGES_PER_PAGE);
     await showImagesById(imageIdModel, filmUrls);
     /*
      *There is no more image url in the storage, next films can not be showed. 
@@ -294,8 +295,8 @@ async function prev(categoryName, imageIdModel){
     if (currentPositions[categoryName] >= NB_IMAGES_PER_PAGE){
         currentPositions[categoryName] -= NB_IMAGES_PER_PAGE;
     }
-    firstPosition = currentPositions[categoryName]; // First image position from the left to right.
-    filmUrls = detailInfoUrls[categoryName].slice(firstPosition, firstPosition + NB_IMAGES_PER_PAGE);
+    let firstPosition = currentPositions[categoryName]; // First image position from the left to right.
+    let filmUrls = detailInfoUrls[categoryName].slice(firstPosition, firstPosition + NB_IMAGES_PER_PAGE);
     await showImagesById(imageIdModel, filmUrls);
 }
 
@@ -303,9 +304,9 @@ async function prev(categoryName, imageIdModel){
  * Show next films by detecting category via id of next button.
  */
 async function nextFilms(clickedId){
-    idBtn = clickedId; // this.id in html file.
+    let idBtn = clickedId; // this.id in html file.
     const words = idBtn.split('_');
-    categoryName = words[words.length -1];
+    let categoryName = words[words.length -1];
     let imageIdModel = categoryName + "Img";
     await next(categoryName, imageIdModel);
 }
@@ -314,9 +315,9 @@ async function nextFilms(clickedId){
  * Show previous films by detecting category via id of previous button.
  */
 async function prevFilms(clickedId){
-    idBtn = clickedId; // this.id in html file.
+    let idBtn = clickedId; // this.id in html file.
     const words = idBtn.split('_');
-    categoryName = words[words.length -1];
+    let categoryName = words[words.length -1];
     let imageIdModel = categoryName + "Img";
     await prev(categoryName, imageIdModel);
 }
