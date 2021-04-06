@@ -13,6 +13,7 @@ body
     color: #181818;
 }
 
+/* Set width of page */
 #bloc_page
 {
     width: 90%;
@@ -27,7 +28,7 @@ body
     display: flex;
 }
 
-/* Create three equal columns that sits next to each other */
+/* Create seven equal columns that sits next to each other */
 .column {
     flex: 13%;
     padding: 2px;
@@ -50,13 +51,19 @@ body
 }
 
 /*begin header nav*/
-
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color:none;
+}
+
+#li-title {
+    font-weight: bold;
+}
+
+#ul-nav {
+    float: right;
 }
 
 li {
@@ -64,12 +71,10 @@ li {
 }
 
 li a {
-    color: none;
-    text-color:  black;
+    color: blue;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    background-color:none;
 }
 
 li a:hover:not(.active) {
@@ -79,7 +84,6 @@ li a:hover:not(.active) {
 .active {
     background-color: #4CAF50;
 }
-
 /*end header nav*/
 
 /* The Modal (background) */
@@ -120,7 +124,8 @@ li a:hover:not(.active) {
     text-decoration: none;
     cursor: pointer;
 }
-/* End modal part */
+/* End modal box */
+
 .center {
     text-align: center;
     font-weight: bold;
