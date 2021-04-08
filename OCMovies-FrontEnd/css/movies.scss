@@ -1,0 +1,232 @@
+/* Style the header */
+
+.header {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+}
+
+/* body */
+
+body {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  color: #181818;
+}
+
+/* Set width of page */
+
+#bloc_page {
+  width: 90%;
+  margin: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+/* Create seven equal columns that sits next to each other */
+
+.column {
+  flex: 13%;
+  padding: 2px;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .row {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+/*Result Size: 632 x 459*/
+
+@media (max-width: 600px) {
+  .row {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+/* Begin header nav */
+
+.ul-header {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    float: right;
+
+    &:first-child {
+      float: left;
+      font-weight: bold;
+      margin-left: 0;
+    }
+
+    a {
+      color: blue;
+      text-align: center;
+      padding: 0px 16px;
+      text-decoration: none;
+
+      &:hover:not(.active) {
+        background-color: #111;
+      }
+    }
+  }
+
+  .active {
+    background-color: #4CAF50;
+  }
+}
+
+/* Title page */
+
+/* End header nav*/
+
+/* The Modal (background) */
+
+.modal {
+  display: none;
+
+  /* Hidden by default */
+  position: fixed;
+
+  /* Stay in place */
+  z-index: 1;
+
+  /* Sit on top */
+  padding-top: 100px;
+
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  /* Full width */
+  height: 100%;
+
+  /* Full height */
+  overflow: auto;
+
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+
+  &:hover, &:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+/* End modal box */
+
+/* center text */
+
+.center {
+  text-align: center;
+  font-weight: bold;
+}
+
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  background-repeat: no-repeat;
+
+  /*background-size: cover;*/
+  background-size: 50%;
+  background-position: 15% 12%;
+
+  img {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .text-block {
+    position: relative;
+    top: 20%;
+    left: 60%;
+    display: inline-block;
+    width: 500px;
+    height: 10px;
+    padding: 5px;
+    font-style: italic;
+    color: white;
+    margin-left: 50px;
+    font-size: 25px;
+  }
+
+  .vertical-center {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 0%;
+    transform: translate(0%, 0%);
+    -ms-transform: translate(-50%, -50%);
+  }
+}
+
+.btn {
+  position: absolute;
+  top: 95%;
+  left: 75%;
+  transform: translate(-50%, -100%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  white-space: nowrap;
+
+  /*No break line*/
+  font-family: Arial;
+  font-size: 14px;
+  border: 10px;
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: black;
+  }
+}

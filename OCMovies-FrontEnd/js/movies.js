@@ -11,8 +11,8 @@
 
 // Key to retrieve film information.
 const KEYS = ["title", "genres", "date_published", "rated", "imdb_score", "directors", "actors", "duration",
-	"countries", "description"
-];
+	"countries", "description"];
+
 
 // Categories will be showed in html file.
 const CATEGORY_NAMES = ["bestFilm", "action", "fantasy", "animation"];
