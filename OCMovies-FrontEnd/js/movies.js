@@ -79,8 +79,8 @@ async function showTheBestFilm() {
 		let element = document.getElementById("theBestFilm");
 
 		// Set or change some properties to the display of the best film.
-		element.style.backgroundColor = "#2196F3";
-		element.style.height = "350px";
+//		element.style.backgroundColor = "#2196F3";
+//		element.style.height = "350px";
 		element.style.backgroundImage = "url(" + imageUrl + ")"; // The best film is used as the background here.
 
 		// Add information to the display
