@@ -170,7 +170,8 @@ img:hover {
 
 .container__background {
     height: 350px;
-    background-color: #2196F3;
+    /*background-color: #2196F3;*/
+    background-color: white;
     background-repeat: no-repeat;
     background-size: 50%;
     background-position: 15% 12%;

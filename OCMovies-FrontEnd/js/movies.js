@@ -9,10 +9,13 @@
  * 5 is the number of film urls obtained for a request realized on one server page.)
  */
 
-// Key to retrieve film information.
+// Keys to retrieve film information.
 const KEYS = ["title", "genres", "date_published", "rated", "imdb_score", "directors", "actors", "duration",
-	"countries", "description"];
+	"countries", "worldwide_gross_income", "description"];
 
+// "KEYS_OF_INFO" is the json type where each key in the constant "KEYS" will be renamed to display as a title of corresponding information.
+// e.g. "title" becomes "Title", "worldwide_gross_income" becomes "Box office"
+let KEYS_OF_INFO;
 
 // Categories will be showed in html file.
 const CATEGORY_NAMES = ["bestFilm", "action", "fantasy", "animation"];
@@ -32,6 +35,24 @@ let nextUrls = {}; // Mark the url by category to can be continued fetching at t
 document.getElementsByTagName("body").onload = loadImages();
 
 /**
+ * Rename keys to display in the modal box as title of each information.
+ */
+function renameKeys(){
+    let renamedKeys = {};
+    for (let key of KEYS) {
+        if (key.includes("_")) {
+            key.replace("_", " ");
+        }
+
+        renamedKeys[key] = key.charAt(0).toUpperCase() + key.slice(1);
+        if (key === "worldwide_gross_income"){
+            renamedKeys[key] = "Box office";
+        }
+    }
+    return renamedKeys;
+}
+
+/**
  * Initialize some declared parameters.
  */
 function initializeParameters() {
@@ -47,6 +68,7 @@ function initializeParameters() {
 	nextUrls[CATEGORY_NAMES[2]] = "http://127.0.0.1:8000/api/v1/titles/?genre=fantasy&sort_by=-imdb_score"; // fantasy
 	nextUrls[CATEGORY_NAMES[3]] = "http://127.0.0.1:8000/api/v1/titles/?genre=animation&sort_by=-imdb_score"; //animation
 
+    KEYS_OF_INFO = renameKeys();
 }
 
 /**
@@ -79,8 +101,7 @@ async function showTheBestFilm() {
 		let element = document.getElementById("theBestFilm");
 
 		// Set or change some properties to the display of the best film.
-//		element.style.backgroundColor = "#2196F3";
-//		element.style.height = "350px";
+		element.style.backgroundColor = "#2196F3";
 		element.style.backgroundImage = "url(" + imageUrl + ")"; // The best film is used as the background here.
 
 		// Add information to the display
@@ -131,25 +152,16 @@ async function updateUrlsForDetailInfo(categoryName) {
 /**
  * Build a "div" then add film information to display in the modal box.
  */
-function addElementsToDiv(div, result, KEYS) {
-	for (let key of KEYS) {
+function addElementsToDiv(div, result, KEYS_OF_INFO) {
+    for (const [key, renamedKey] of Object.entries(KEYS_OF_INFO)) {
 		let tag = document.createElement("p");
 		let info;
-		if (result.hasOwnProperty(key)) {
-			info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + result[key];
+		if (result.hasOwnProperty(key) && result[key]) {
+			info = renamedKey + ": " + result[key];
 		} else {
 			let noInfo = "Not available";
-			info = key.charAt(0).toUpperCase() + key.slice(1) + ": " + noInfo;
+			info = renamedKey + ": " + noInfo;
 		}
-		// Deal to some characters
-		if (info.includes("_")) {
-			info.replace("_", " ");
-		}
-
-		if (info.includes(",")) {
-			info.replace(",", " ");
-		}
-
 		let text = document.createTextNode(info);
 		tag.appendChild(text);
 		div.appendChild(tag);
@@ -172,7 +184,7 @@ async function showInfo(result) {
 	img.src = result["image_url"];
 	newDiv.appendChild(img);
 
-	addElementsToDiv(newDiv, result, KEYS); // see const KEYS at the beginning of this script.
+	addElementsToDiv(newDiv, result, KEYS_OF_INFO); // see const KEYS_OF_INFO at the beginning of this script.
 
 	element.appendChild(newDiv);
 
