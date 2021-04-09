@@ -243,12 +243,6 @@ async function showImage(filmUrl, imgId) {
 	img.onclick = async function() {
 		await showModalBox(data);
 	};
-
-	let btnId = "btn_" + imgId; // e.g. model: btn_bestFilmImg0
-	let btn = document.getElementById(btnId);
-	btn.onclick = async function() {
-		await showModalBox(data);
-	};
 }
 
 /**
