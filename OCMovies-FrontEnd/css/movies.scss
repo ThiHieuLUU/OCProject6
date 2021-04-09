@@ -7,19 +7,21 @@
   font-size: 35px;
 }
 
-/* body */
+/* Body */
 
 body {
   font-family: 'Trebuchet MS', Arial, sans-serif;
   color: #181818;
 }
 
-/* Set width of page */
+/* Set the width of page */
 
 #bloc_page {
   width: 90%;
   margin: auto;
 }
+
+/* All elements are sized with same box's size */
 
 * {
   box-sizing: border-box;
@@ -36,7 +38,7 @@ body {
   padding: 2px;
 }
 
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+/* Responsive layout */
 @media (max-width: 600px) {
   .row {
     -webkit-flex-direction: column;
@@ -152,7 +154,7 @@ body {
 
 /* End modal box */
 
-/* center text */
+/* Centered text */
 
 .center {
   text-align: center;
@@ -169,14 +171,11 @@ img {
   }
 }
 
+/* Begin container, which allows to contain images, button over images, text over images, etc.)*/
+
 .container {
   position: relative;
   width: 100%;
-  background-repeat: no-repeat;
-
-  /*background-size: cover;*/
-  background-size: 50%;
-  background-position: 15% 12%;
 
   img {
     position: relative;
@@ -199,6 +198,20 @@ img {
   }
 }
 
+.container__background {
+  height: 350px;
+
+  /*background-color: #2196F3;*/
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: 15% 12%;
+}
+
+/* End container*/
+
+/* Centered vertically an element*/
+
 .vertical-center {
   margin: 0;
   position: relative;
@@ -207,6 +220,8 @@ img {
   transform: translate(0%, 0%);
   -ms-transform: translate(-50%, -50%);
 }
+
+/*Button and its position toward other elements, e.g. image*/
 
 .btn {
   position: absolute;
