@@ -2,10 +2,15 @@
 ## 1. About the project
 The goal of this project is to develop the frontend part for streaming films of some categories.
 The request is realized with API developed at [this github link](https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR.git). 
-## 2. Launch the API
+## 2. Clone this project
+```bash
+git clone https://github.com/ThiHieuLUU/OCProject6.git
+```
+The project will be put in the directory "OCProject6" containing a subdirectory named "OCMovies-FrontEnd".
+
+## 2. Clone and launch the API
 ```bash
 sudo apt install -y python3-venv
-mkdir OCProject6
 cd OCProject6
 git clone https://github.com/OpenClassrooms-Student-Center/OCMovies-API-EN-FR.git
 cd OCMovies-API-EN-FR
@@ -16,7 +21,7 @@ python manage.py create_db
 python manage.py runserver
 ```
 ## 3. Launch the web page 
-In "OCProject6" directory, go to the "OCMovies-FrontEnd" directory and open the file "index.html". For example:
+In the directory "OCProject6", go to the directory "OCMovies-FrontEnd" and open the file "index.html". For example:
 ```bash
 cd OCMovies-FrontEnd
 firefox index.html &
