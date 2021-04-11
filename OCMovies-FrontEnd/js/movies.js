@@ -113,7 +113,7 @@ async function showTheBestFilm() {
 		// Call the modal box when the button is clicked.
 		let btn = document.getElementById("btn_theBestFilmImg");
 		btn.onclick = async function() {
-			await showModalBox(data);
+		    await showInfo(data);
 		};
 	} catch (err) {
 		// catches errors
@@ -207,16 +207,6 @@ async function showInfo(result) {
 }
 
 /**
- * Show detail information of a film in a modal box.
- */
-async function showModalBox(data) {
-	if (document.getElementById("modalDiv")) {
-		document.getElementById("modalDiv").remove();
-	}
-	await showInfo(data);
-}
-
-/**
  * Retrieve data (type: json) from an url containing film id (e.g. "http://localhost:8000/api/v1/titles/9").
  * This data contains detail information of the corresponding film.
  */
@@ -241,7 +231,7 @@ async function showImage(filmUrl, imgId) {
 	img.src = imageUrl;
 	// Add event "onclick" to display film information in a modal box
 	img.onclick = async function() {
-		await showModalBox(data);
+        await showInfo(data);
 	};
 }
 
